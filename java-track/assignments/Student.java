@@ -57,7 +57,7 @@ public class Student {
 			}	else	{
 				this.tuition=((this.credits%15)*1333.33)+((this.credits/15)*20000.00);
 			}
-		this.tuition=Math.round(this.tuition*1000.0)/1000.0;
+		//this.tuition=Math.round(this.tuition*1000.0)/1000.0;
 		return tuition;
 	}
 
