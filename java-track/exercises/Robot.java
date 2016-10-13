@@ -25,6 +25,12 @@ private int direction;//1=n,2=e,3=s,4=w
 		return this.y;
 	}
 	
+	public void setX(int x) {
+		this.x = x;
+	}
+	public void setY(int y) {
+		this.y = y;
+	}
 	public int getSpeed()	{
 		return this.speed;
 	}
