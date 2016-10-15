@@ -1,11 +1,11 @@
 package javagram.filters;
 
-import javagram.Picture;
 import java.awt.Color;
 
-public class BlueFilter implements Filter {
+import javagram.Picture;
 
-	public Picture process(Picture original) {
+public class Flip implements Filter {
+public Picture process(Picture original) {
 		
 		Picture processed = new Picture(original.width(), original.height());
         
@@ -20,14 +20,13 @@ public class BlueFilter implements Filter {
 	          int g = c.getGreen();
 	          int b = c.getBlue();
 	          
-	          int newBlue = (r + g + b) / 3;
 	          
-	          processed.set(i, j, new Color(0, 0, newBlue));
+	          
+	          processed.set(original.width()-1-i, original.height()-1-j, new Color(r, g, b));
 	    	  
 	      }
 	    }
 		
 		return processed;
 	}
-
 }
