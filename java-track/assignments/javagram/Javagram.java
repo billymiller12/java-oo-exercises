@@ -18,12 +18,12 @@ public class Javagram {
 		Scanner in = new Scanner(System.in);
 
 		// prompt user for image to filter and validate input
-		do {
+		do	{
 
 			String imagePath = "path not set";
 
 			// try to open the file
-			try {
+			try	{
 
 				System.out.println("Image path (relative to " + dir + "):");
 				relPath = in.next();
@@ -33,11 +33,11 @@ public class Javagram {
 
 				picture = new Picture(imagePath);
 
-			} catch (RuntimeException e) {
+			}	catch(RuntimeException e)	{
 				System.out.println("Could not open image: " + imagePath);
 			}
 
-		} while(picture == null);
+		}	while(picture == null);
 
 		// TODO - prompt user for filter and validate input
 		int filterValue=0;
@@ -69,7 +69,7 @@ public class Javagram {
 			}
 		}	while(optionValue==0);
 
-		if	(optionValue==1)	{
+		if(optionValue==1)	{
 			int filterValue2=0;
 			do	{
 				try	{
@@ -90,38 +90,36 @@ public class Javagram {
 
 		// save image, if desired
 
-		
 		int n=0;
 		// TODO - if the user enters the same file name as the input file, confirm that they want to overwrite the original
 		do{
 			System.out.println("Save image to (relative to " + dir + ") (type 'exit' to quit w/o saving):");
 			String fileName = in.next();
-		try	{
-			if	(fileName.equals(relPath))	{
-				throw new IllegalArgumentException();
-			}	else	if (fileName.equals("exit")) {
-				System.out.println("Image not saved");
-				n++;
-			} else	{
-				String absFileName = dir + File.separator + fileName;
-				processed.save(absFileName);
-				System.out.println("Image saved to " + absFileName);
-				n++;
-			}	
+			try	{
+				if(fileName.equals(relPath))	{
+					throw new IllegalArgumentException();
+				}	else	if (fileName.equals("exit")) {
+					System.out.println("Image not saved");
+					n++;
+				} 	else	{
+					String absFileName = dir + File.separator + fileName;
+					processed.save(absFileName);
+					System.out.println("Image saved to " + absFileName);
+					n++;
+				}	
 
-		}
+			}
 
-		catch (IllegalArgumentException e)	{
-			String verify=displayConfirmation(in);
-			if(verify.equals("yes")){
-				
+			catch (IllegalArgumentException e)	{
+				String verify=displayConfirmation(in);
+				if(verify.equals("yes"))	{
+
 					String absFileName = dir + File.separator + fileName;
 					processed.save(absFileName);
 					System.out.println("Image saved to " + absFileName);
 					n++;
 				}
-			
-		}
+			}
 		}	while(n==0);
 		// close input scanner
 		in.close();
@@ -134,7 +132,7 @@ public class Javagram {
 	private static Filter getFilter(int a) {
 		Filter f=null;
 		// TODO - create some more filters, and add logic to return the appropriate one
-		if	(a==1)	{
+		if(a==1)	{
 			f= new BlackAndWhite();
 		}		
 		if(a==2)	{
@@ -179,11 +177,11 @@ public class Javagram {
 		System.out.println("1 for Black and White");
 		System.out.println("2 for Blue");
 		System.out.println("3 for Yellow");
-		System.out.println("4 for Two Tone");
+		System.out.println("4 for 2 Tone");
 		System.out.println("5 for 3 tone");
 		System.out.println("6 to Reverse");
 		System.out.println("7 to Flip");
-		System.out.println("8 for a Negative");
+		System.out.println("8 for Negative");
 		System.out.println("9 for Merrica");
 		System.out.println("10 for Mirror");
 		System.out.println("11 to Lighten");
