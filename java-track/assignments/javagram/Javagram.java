@@ -13,7 +13,7 @@ public class Javagram {
 		// Create the base path for images		
 		String[] baseParts = {System.getProperty("user.dir"), "images"};
 		String dir = String.join(File.separator, baseParts);
-		String relPath;
+		String relPath="";
 		Picture picture = null;
 		Scanner in = new Scanner(System.in);
 
@@ -90,19 +90,39 @@ public class Javagram {
 
 		// save image, if desired
 
-		System.out.println("Save image to (relative to " + dir + ") (type 'exit' to quit w/o saving):");
-		String fileName = in.next();
-
+		
+		int n=0;
 		// TODO - if the user enters the same file name as the input file, confirm that they want to overwrite the original
+		do{
+			System.out.println("Save image to (relative to " + dir + ") (type 'exit' to quit w/o saving):");
+			String fileName = in.next();
+		try	{
+			if	(fileName.equals(relPath))	{
+				throw new IllegalArgumentException();
+			}	else	if (fileName.equals("exit")) {
+				System.out.println("Image not saved");
+				n++;
+			} else	{
+				String absFileName = dir + File.separator + fileName;
+				processed.save(absFileName);
+				System.out.println("Image saved to " + absFileName);
+				n++;
+			}	
 
-		if (fileName.equals("exit")) {
-			System.out.println("Image not saved");
-		} else {
-			String absFileName = dir + File.separator + fileName;
-			processed.save(absFileName);
-			System.out.println("Image saved to " + absFileName);
-		}	
+		}
 
+		catch (IllegalArgumentException e)	{
+			String verify=displayConfirmation(in);
+			if(verify.equals("yes")){
+				
+					String absFileName = dir + File.separator + fileName;
+					processed.save(absFileName);
+					System.out.println("Image saved to " + absFileName);
+					n++;
+				}
+			
+		}
+		}	while(n==0);
 		// close input scanner
 		in.close();
 	}
@@ -183,6 +203,12 @@ public class Javagram {
 			throw new IllegalArgumentException();
 		}
 		return optionValue;
+	}
+
+	private static String displayConfirmation(Scanner stringIn){
+		System.out.println("Caution, using this name will overwrite the original file. Type 'yes' to continue.");
+		String response=stringIn.next();
+		return response;
 	}
 
 }
